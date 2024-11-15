@@ -1,8 +1,10 @@
-package com.rtj.mctrackerrebuild;
+package com.rtj.mctrackerrebuild.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.rtj.mctrackerrebuild.R;
 
 public class MainActivity extends AppCompatActivity {
 
