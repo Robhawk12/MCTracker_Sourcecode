@@ -19,8 +19,6 @@ public interface ClientDao {
     void update(Client client);
    @Delete
     void delete(Client client);
-  /* @Query("SELECT * FROM table_client ORDER BY clientid ASC")
-    List<Client> getAllClients;
-
-   */
+   @Query("SELECT * FROM table_client ORDER BY clientid ASC")
+    List<Client> getAllClients();
 }
