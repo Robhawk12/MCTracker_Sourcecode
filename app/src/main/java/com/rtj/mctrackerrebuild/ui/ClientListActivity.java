@@ -60,6 +60,19 @@ public class ClientListActivity extends AppCompatActivity {
 
             Toast.makeText(ClientListActivity.this, "put in sample data", Toast.LENGTH_LONG).show();
         }
+        onResume();
         return true;
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        RecyclerView recyclerView=findViewById(R.id.recyclerview);
+        repository = new Repository(getApplication());
+        List<Client> allClients = repository.getAllClients();
+        final ClientAdapter clientAdapter = new ClientAdapter(this);
+        recyclerView.setAdapter(clientAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        clientAdapter.setmClients(allClients);
     }
 }

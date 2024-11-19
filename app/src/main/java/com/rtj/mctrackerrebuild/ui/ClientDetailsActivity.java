@@ -63,9 +63,8 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
             for (Client c : repository.getAllClients()) {
                 if (c.getClientid() == clientID) currentClient = c;
-               repository.delete(currentClient);
-                Toast.makeText(ClientDetailsActivity.this,currentClient.getName()+" was deleted",
-                        Toast.LENGTH_LONG).show();
+                showDeleteDialog();
+
             }
         }
         return true;
@@ -95,7 +94,10 @@ public class ClientDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 repository.delete(currentClient);
+                Toast.makeText(ClientDetailsActivity.this,currentClient.getName()+" was deleted",
+                        Toast.LENGTH_LONG).show();
                 dialog.dismiss();
+              finish();
             }
         });
         dialog.show();
