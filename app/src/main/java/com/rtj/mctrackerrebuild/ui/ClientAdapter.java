@@ -36,7 +36,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                     intent.putExtra("name", current.getName());
                     intent.putExtra("email", current.getEmail());
                     intent.putExtra("phone", current.getPhoneNumber());
-                    intent.putExtra("paymentamount", current.getAmountDue());
+                    //intent.putExtra("paymentamount", current.getAmountDue());
                     context.startActivity(intent);
 
                 }

@@ -26,6 +26,12 @@
             android:exported="false"
             android:label="My Clients"
             android:parentActivityName=".ui.MainActivity" />
+        <activity
+            android:name=".ui.ClientDetailsActivity"
+            android:exported="false"
+            android:label="Client Details"
+            android:parentActivityName=".ui.MainActivity" />
     </application>
+
 
 </manifest>
