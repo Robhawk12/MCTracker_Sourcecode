@@ -1,11 +1,13 @@
 package com.rtj.mctrackerrebuild.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -16,21 +18,31 @@ import com.rtj.mctrackerrebuild.entities.Client;
 import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
-    RecyclerView recyclerView;
+
     Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_list);
+
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
-        recyclerView = findViewById(R.id.recyclerview);
+        fab.setOnClickListener(view -> {
+                    Intent intent = new Intent(ClientListActivity.this, ClientDetailsActivity.class);
+                startActivity(intent);
+        });
 
         repository = new Repository(getApplication());
         List<Client> allClients = repository.getAllClients();
 
-
+        RecyclerView recyclerView;
+        recyclerView = findViewById(R.id.recyclerview);
+        final ClientAdapter clientAdapter = new ClientAdapter(this);
+        recyclerView.setAdapter(clientAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        clientAdapter.setmClients(allClients);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_myclients,menu);

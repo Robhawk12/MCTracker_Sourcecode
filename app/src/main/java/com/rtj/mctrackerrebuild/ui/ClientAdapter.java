@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> {
     private List<Client> mClients;
-    private final Context context;
+    private  Context context;
     private final LayoutInflater mInflater;
 
     public class ClientViewHolder extends RecyclerView.ViewHolder {
@@ -47,7 +47,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
     @NonNull
     @Override
     public ClientAdapter.ClientViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.activity_client_list, parent, false);
+        View itemView = mInflater.inflate(R.layout.item_client_view, parent, false);
         return new ClientViewHolder(itemView);
     }
 
