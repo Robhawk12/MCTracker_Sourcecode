@@ -37,6 +37,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
     EditText editPhone;
     TextView editPayment;
     Repository repository ;
+    int payMethodID;
 
 
     @Override
@@ -56,6 +57,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         payMethod = (PayMethod) intent.getSerializableExtra("paymethod");
+        payMethodID = payMethod.getId();
         paymentAmount = getIntent().getStringExtra("amountdue");
         payType = getIntent().getStringExtra("paytype");
         editName.setText(name);
@@ -71,7 +73,9 @@ public class ClientDetailsActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_item, payMethods);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         paySpinner.setAdapter(adapter);
-
+        if(payMethod != null) {
+            paySpinner.setSelection(payMethodID);
+        }
         paySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
