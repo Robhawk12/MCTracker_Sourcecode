@@ -53,9 +53,9 @@ public class ClientListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected (MenuItem item){
         if(item.getItemId() == R.id.sample_code){
             repository = new Repository(getApplication());
-            Client client = new Client(0,"John Smith","es@email.com","555-123-4567", PayMethod.CASH);
+            Client client = new Client(0,"John Smith","es@email.com","555-123-4567", "125.00","Cash" );
             repository.insert(client);
-            client = new Client(99,"Jenny Jones","jj@email.com","255-867-5309",PayMethod.UnitedHealth);
+            client = new Client(99,"Jenny Jones","jj@email.com","255-867-5309","30.00","United Health Insurance");
             repository.insert(client);
 
             Toast.makeText(ClientListActivity.this, "put in sample data", Toast.LENGTH_LONG).show();

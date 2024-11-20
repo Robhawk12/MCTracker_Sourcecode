@@ -1,14 +1,14 @@
 package com.rtj.mctrackerrebuild.entities;
 
 public enum PayMethod {
-    CASH("Cash", 125),
-    UnitedHealth("United Health Insurance", 30),
-    FirstGroup("First Group Health", 35)
+    CASH("Cash", "125"),
+    UnitedHealth("United Health Insurance", "30"),
+    FirstGroup("First Group Health", "35")
     ;
     private String displayName;
-    private int amountDue;
+    private String amountDue;
 
-    PayMethod(String cash, int i) {
+    PayMethod(String displayName, String amountDue ) {
         this.displayName = displayName;
         this.amountDue = amountDue;
     }
@@ -17,9 +17,10 @@ public enum PayMethod {
         return displayName;
     }
 
-    public int getAmountDue() {
+    public String getAmountDue() {
         return amountDue;
     }
+
     @Override
     public String toString() {
         return displayName + "Amount Due $" + amountDue;

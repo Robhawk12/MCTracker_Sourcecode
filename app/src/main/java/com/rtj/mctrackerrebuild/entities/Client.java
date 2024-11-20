@@ -10,24 +10,32 @@ public class Client {
     private String name;
     private String email;
     private String phoneNumber;
-
-    private PayMethod payMethod;
-
-    public Client(int clientid, String name, String email, String phoneNumber, PayMethod payMethod ) {
+    private String amountDue;
+    private String payType;
+    public Client(int clientid, String name, String email, String phoneNumber, String amountDue, String payType ) {
         this.clientid = clientid;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
-
-        this.payMethod = payMethod;
+        this.payType = payType;
+        this.amountDue = amountDue;
     }
 
-    public PayMethod getPayMethod() {
-        return payMethod;
+
+    public String getAmountDue() {
+        return amountDue;
     }
 
-    public void setPayMethod(PayMethod payMethod) {
-        this.payMethod = payMethod;
+    public void setAmountDue(String amountDue) {
+        this.amountDue = amountDue;
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
     }
 
     public int getClientid() {

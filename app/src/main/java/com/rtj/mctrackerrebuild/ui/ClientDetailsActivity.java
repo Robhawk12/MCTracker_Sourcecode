@@ -24,12 +24,12 @@ public class ClientDetailsActivity extends AppCompatActivity {
     String email;
     String phone;
     String paymentAmount;
-    String nameOfInsurance;
-    EditText editNameOfInsurance;
+    String payType;
+    TextView editPayType;
     EditText editName;
     EditText editEmail;
     EditText editPhone;
-    EditText editPayment;
+    TextView editPayment;
     Repository repository ;
 
     @Override
@@ -41,15 +41,18 @@ public class ClientDetailsActivity extends AppCompatActivity {
         editEmail = findViewById(R.id.email);
         editPhone = findViewById(R.id.phoneNumber);
         editPayment = findViewById(R.id.amountDue);
+        editPayType = findViewById(R.id.payType);
         clientID = getIntent().getIntExtra("id", -1);
         name = getIntent().getStringExtra("name");
         email = getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
-        paymentAmount = getIntent().getStringExtra("paymentamount");
+        paymentAmount = getIntent().getStringExtra("amountdue");
+        payType = getIntent().getStringExtra("paytype");
         editName.setText(name);
         editEmail.setText(email);
         editPhone.setText(phone);
         editPayment.setText(paymentAmount);
+        editPayType.setText(payType);
     }
 
     @Override
