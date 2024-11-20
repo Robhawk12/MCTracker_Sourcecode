@@ -1,12 +1,16 @@
 package com.rtj.mctrackerrebuild.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.rtj.mctrackerrebuild.R;
 import com.rtj.mctrackerrebuild.data.Repository;
 import com.rtj.mctrackerrebuild.entities.Client;
+import com.rtj.mctrackerrebuild.entities.PayMethod;
 
 public class ClientDetailsActivity extends AppCompatActivity {
     Client currentClient = null;
@@ -25,6 +30,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
     String phone;
     String paymentAmount;
     String payType;
+    PayMethod payMethod;
     TextView editPayType;
     EditText editName;
     EditText editEmail;
@@ -32,11 +38,14 @@ public class ClientDetailsActivity extends AppCompatActivity {
     TextView editPayment;
     Repository repository ;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_detail);
         repository = new Repository(getApplication());
+
+        Intent intent = getIntent();
         editName = findViewById(R.id.clientName);
         editEmail = findViewById(R.id.email);
         editPhone = findViewById(R.id.phoneNumber);
@@ -46,6 +55,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
         name = getIntent().getStringExtra("name");
         email = getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
+        payMethod = (PayMethod) intent.getSerializableExtra("paymethod");
         paymentAmount = getIntent().getStringExtra("amountdue");
         payType = getIntent().getStringExtra("paytype");
         editName.setText(name);
@@ -53,6 +63,48 @@ public class ClientDetailsActivity extends AppCompatActivity {
         editPhone.setText(phone);
         editPayment.setText(paymentAmount);
         editPayType.setText(payType);
+
+        //Spinner
+        Spinner paySpinner = findViewById(R.id.paySpinner);
+        PayMethod[] payMethods = PayMethod.values();
+        ArrayAdapter<PayMethod> adapter = new ArrayAdapter<>(
+                this, android.R.layout.simple_spinner_item, payMethods);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        paySpinner.setAdapter(adapter);
+
+        paySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                PayMethod selectedPayMethod = (PayMethod) adapterView.getItemAtPosition(position);
+                if(selectedPayMethod == PayMethod.CASH){
+                    payType = selectedPayMethod.getDisplayName();
+                    paymentAmount = selectedPayMethod.getAmountDue();
+                    editPayment.setText(paymentAmount);
+                    editPayType.setText(payType);
+                    payMethod = PayMethod.CASH;
+                }
+                if(selectedPayMethod == PayMethod.FirstGroup){
+                    payType = selectedPayMethod.getDisplayName();
+                    paymentAmount = selectedPayMethod.getAmountDue();
+                    editPayment.setText(paymentAmount);
+                    editPayType.setText(payType);
+                    payMethod = PayMethod.FirstGroup;
+                }
+                if(selectedPayMethod == PayMethod.UnitedHealth){
+                    payType = selectedPayMethod.getDisplayName();
+                    paymentAmount = selectedPayMethod.getAmountDue();
+                    editPayment.setText(paymentAmount);
+                    editPayType.setText(payType);
+                    payMethod = PayMethod.UnitedHealth;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+           }
+
+
+        });
     }
 
     @Override
@@ -68,6 +120,27 @@ public class ClientDetailsActivity extends AppCompatActivity {
                 if (c.getClientid() == clientID) currentClient = c;
                 showDeleteDialog();
 
+            }
+        }
+        if(item.getItemId()==R.id.save){
+            Client client;
+            int listSize = repository.getAllClients().size();
+            if(clientID == -1){
+                if(listSize == 0) clientID = 0;
+                else
+                    clientID = repository.getAllClients()
+                            .get(repository.getAllClients().size() - 1).getClientid() + 1;
+                client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
+                        editPhone.getText().toString(),payMethod,editPayment.getText().toString()
+                        ,editPayType.getText().toString());
+                repository.insert(client);
+                this.finish();
+            }else {
+                client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
+                        editPhone.getText().toString(),payMethod,editPayment.getText().toString()
+                        ,editPayType.getText().toString());
+                repository.update(client);
+                this.finish();
             }
         }
         return true;
@@ -105,4 +178,5 @@ public class ClientDetailsActivity extends AppCompatActivity {
         });
         dialog.show();
     }
+
 }

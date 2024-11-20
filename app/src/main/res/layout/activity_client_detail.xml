@@ -138,7 +138,7 @@
             </LinearLayout>
 
             <Spinner
-                android:id="@+id/paymentMethod"
+                android:id="@+id/paySpinner"
                 style="@style/TextAppearance.AppCompat.Large"
                 android:layout_width="match_parent"
                 android:layout_height="83dp"

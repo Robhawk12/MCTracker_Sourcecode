@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rtj.mctrackerrebuild.R;
 import com.rtj.mctrackerrebuild.entities.Client;
+import com.rtj.mctrackerrebuild.entities.PayMethod;
 
 import java.util.List;
 
@@ -31,11 +32,13 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     final Client current = mClients.get(position);
+                     current.getPayMethod();
                     Intent intent = new Intent(context, ClientDetailsActivity.class);
                     intent.putExtra("id", current.getClientid());
                     intent.putExtra("name", current.getName());
                     intent.putExtra("email", current.getEmail());
                     intent.putExtra("phone", current.getPhoneNumber());
+                    intent.putExtra("paymethod",current.getPayMethod() );
                     intent.putExtra("amountdue", current.getAmountDue());
                     intent.putExtra("paytype",current.getPayType());
                     context.startActivity(intent);
