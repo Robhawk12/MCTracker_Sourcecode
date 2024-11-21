@@ -57,7 +57,9 @@ public class ClientDetailsActivity extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         payMethod = (PayMethod) intent.getSerializableExtra("paymethod");
-        payMethodID = payMethod.getId();
+        if(payMethod != null){
+            payMethodID = payMethod.getId();
+        }
         paymentAmount = getIntent().getStringExtra("amountdue");
         payType = getIntent().getStringExtra("paytype");
         editName.setText(name);

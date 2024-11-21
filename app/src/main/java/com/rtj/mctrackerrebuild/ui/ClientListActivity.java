@@ -29,7 +29,9 @@ public class ClientListActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(view -> {
+            PayMethod payMethod = null;
                     Intent intent = new Intent(ClientListActivity.this, ClientDetailsActivity.class);
+                    intent.putExtra("paymethod",payMethod );
                 startActivity(intent);
         });
 
