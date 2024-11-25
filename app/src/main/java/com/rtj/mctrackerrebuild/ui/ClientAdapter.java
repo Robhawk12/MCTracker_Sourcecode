@@ -14,11 +14,13 @@ import com.rtj.mctrackerrebuild.R;
 import com.rtj.mctrackerrebuild.entities.Client;
 import com.rtj.mctrackerrebuild.entities.PayMethod;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientViewHolder> {
     private List<Client> mClients;
-    private  Context context;
+    private List<Client> mClientsFull;
+    private Context context;
     private final LayoutInflater mInflater;
 
     public class ClientViewHolder extends RecyclerView.ViewHolder {
@@ -32,21 +34,22 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     final Client current = mClients.get(position);
-                     current.getPayMethod();
+                    current.getPayMethod();
                     Intent intent = new Intent(context, ClientDetailsActivity.class);
                     intent.putExtra("id", current.getClientid());
                     intent.putExtra("name", current.getName());
                     intent.putExtra("email", current.getEmail());
                     intent.putExtra("phone", current.getPhoneNumber());
-                    intent.putExtra("paymethod",current.getPayMethod() );
+                    intent.putExtra("paymethod", current.getPayMethod());
                     intent.putExtra("amountdue", current.getAmountDue());
-                    intent.putExtra("paytype",current.getPayType());
+                    intent.putExtra("paytype", current.getPayType());
                     context.startActivity(intent);
 
                 }
             });
         }
     }
+
 
     @NonNull
     @Override
@@ -74,14 +77,21 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
 
     @Override
     public int getItemCount() {
-        if(mClients != null){
+        if (mClients != null) {
             return mClients.size();
-        }else return 0;
+        } else return 0;
     }
 
-    public ClientAdapter(Context context) {
-        mInflater = LayoutInflater.from(context);
+    public ClientAdapter(Context context, List<Client> clients) {
         this.context = context;
+        this.mInflater = LayoutInflater.from(context);
+        this.mClients = clients;
+        this.mClientsFull = new ArrayList<>(clients);
+
     }
 
+    public void filterList(List<Client> filteredList) {
+       mClients = filteredList;
+        notifyDataSetChanged();
+    }
 }

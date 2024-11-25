@@ -2,50 +2,76 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/relativeLayout"
+    android:fitsSystemWindows="true"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ClientDetailsActivity">
+    tools:context=".ui.ClientDetailsActivity"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="-25dp"
+
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/scrollview"
         android:layout_width="409dp"
-        android:layout_height="400dp"
-        android:background="#03A9F4"
+        android:layout_height="match_parent"
+
         android:padding="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="100dp"
+            android:background="@color/colorPrimaryDark"
             android:orientation="vertical"
+
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingVertical="2dp"
-                >
+                android:paddingVertical="2dp">
 
                 <TextView
                     style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
-                    android:text="Amout Due: "
-                    android:textColor="#FFFFFF" />
+                    android:text="Amout Due: " />
 
                 <TextView
-                    style="@style/TextAppearance.AppCompat.Medium"
                     android:id="@+id/amountDue"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:hint="dollar amount"
-                    android:inputType="numberDecimal"
-                    android:textColor="#FFFFFF" />
+                    android:inputType="numberDecimal" />
 
             </LinearLayout>
 
@@ -114,6 +140,7 @@
                     android:textColor="#FFFFFF" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -128,8 +155,8 @@
                     android:textColor="#FFFFFF" />
 
                 <TextView
-                    style="@style/TextAppearance.AppCompat.Medium"
                     android:id="@+id/payType"
+                    style="@style/TextAppearance.AppCompat.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
 
@@ -148,5 +175,5 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
