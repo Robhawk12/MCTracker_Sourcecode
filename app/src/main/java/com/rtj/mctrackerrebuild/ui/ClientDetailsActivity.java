@@ -112,23 +112,50 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
         });
     }
-    public boolean isValidEmail (String email){
-        String emailPattern = "[a-zA-Z0-9]+@[a-z]+\\.+[a-z]+";
-        return email != null & email.matches(emailPattern);
-    }
-    public boolean isValidPhone (String phone){
-        String phonePattern = "\\d{10}";
-        return phone != null && phone.matches(phonePattern);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_save_delete, menu);
         return true;
     }
-    private void showDeleteDialog () {
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.delete) {
+
+            for (Client c : repository.getAllClients()) {
+                if (c.getClientid() == clientID) currentClient = c;
+                showDeleteDialog();
+
+            }
+        }
+        if(item.getItemId()==R.id.save){
+            Client client;
+            int listSize = repository.getAllClients().size();
+            if(clientID == -1){
+                if(listSize == 0) clientID = 0;
+                else
+                    clientID = repository.getAllClients()
+                            .get(repository.getAllClients().size() - 1).getClientid() + 1;
+                client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
+                        editPhone.getText().toString(),payMethod,editPayment.getText().toString()
+                        ,editPayType.getText().toString());
+                repository.insert(client);
+                this.finish();
+            }else {
+                client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
+                        editPhone.getText().toString(),payMethod,editPayment.getText().toString()
+                        ,editPayType.getText().toString());
+                repository.update(client);
+                this.finish();
+            }
+        }
+        return true;
+
+    }
+
+    private void showDeleteDialog(){
         LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.dialog_delete_alert, null);
+        View alertLayout = inflater.inflate(R.layout.dialog_delete_alert,null);
         TextView alertTitle = alertLayout.findViewById(R.id.alertTitle);
         TextView alertMessage = alertLayout.findViewById(R.id.alertMessage);
         Button cancelButton = alertLayout.findViewById(R.id.cancelButton);
@@ -139,70 +166,23 @@ public class ClientDetailsActivity extends AppCompatActivity {
         alert.setCancelable(false);
         AlertDialog dialog = alert.create();
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
+        cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 dialog.dismiss();
             }
         });
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v){
                 repository.delete(currentClient);
-                Toast.makeText(ClientDetailsActivity.this, currentClient.getName() + " was deleted",
+                Toast.makeText(ClientDetailsActivity.this,currentClient.getName()+" was deleted",
                         Toast.LENGTH_LONG).show();
                 dialog.dismiss();
-                finish();
+              finish();
             }
         });
         dialog.show();
     }
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.delete) {
 
-            for (Client c : repository.getAllClients()) {
-                if (c.getClientid() == clientID) currentClient = c;
-                showDeleteDialog();
-
-            }
-        }
-        if (item.getItemId() == R.id.save) {
-            Client client;
-            int listSize = repository.getAllClients().size();
-            String email = editEmail.getText().toString().trim();
-            String phone = editPhone.getText().toString().trim();
-
-            if (isValidEmail(email) && isValidPhone(phone)) {
-
-
-                if (clientID == -1) {
-                    if (listSize == 0) clientID = 0;
-                    else
-                        clientID = repository.getAllClients()
-                                .get(repository.getAllClients().size() - 1).getClientid() + 1;
-                    client = new Client(clientID, editName.getText().toString(), editEmail.getText().toString(),
-                            editPhone.getText().toString(), payMethod, editPayment.getText().toString()
-                            , editPayType.getText().toString());
-                    repository.insert(client);
-                    this.finish();
-                } else {
-                    client = new Client(clientID, editName.getText().toString(), editEmail.getText().toString(),
-                            editPhone.getText().toString(), payMethod, editPayment.getText().toString()
-                            , editPayType.getText().toString());
-                    repository.update(client);
-                    this.finish();
-                }
-            } else {
-                Toast.makeText(this, "Invalid phone or email type", Toast.LENGTH_LONG).show();
-                ;
-                return false;
-            }
-            return true;
-
-
-        }
-
-        return true;
-
-    }
 }
