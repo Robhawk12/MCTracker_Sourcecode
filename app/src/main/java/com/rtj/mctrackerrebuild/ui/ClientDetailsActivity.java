@@ -22,6 +22,8 @@ import com.rtj.mctrackerrebuild.data.Repository;
 import com.rtj.mctrackerrebuild.entities.Client;
 import com.rtj.mctrackerrebuild.entities.PayMethod;
 
+import java.util.Date;
+
 public class ClientDetailsActivity extends AppCompatActivity {
     Client currentClient = null;
     int clientID;
@@ -138,13 +140,13 @@ public class ClientDetailsActivity extends AppCompatActivity {
                             .get(repository.getAllClients().size() - 1).getClientid() + 1;
                 client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
                         editPhone.getText().toString(),payMethod,editPayment.getText().toString()
-                        ,editPayType.getText().toString());
+                        ,editPayType.getText().toString(), new Date());
                 repository.insert(client);
                 this.finish();
             }else {
                 client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
                         editPhone.getText().toString(),payMethod,editPayment.getText().toString()
-                        ,editPayType.getText().toString());
+                        ,editPayType.getText().toString(),new Date());
                 repository.update(client);
                 this.finish();
             }

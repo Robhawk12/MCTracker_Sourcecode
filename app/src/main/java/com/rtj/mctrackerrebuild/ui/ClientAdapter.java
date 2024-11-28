@@ -43,6 +43,7 @@ public class ClientAdapter extends RecyclerView.Adapter<ClientAdapter.ClientView
                     intent.putExtra("paymethod", current.getPayMethod());
                     intent.putExtra("amountdue", current.getAmountDue());
                     intent.putExtra("paytype", current.getPayType());
+
                     context.startActivity(intent);
 
                 }

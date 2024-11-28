@@ -21,6 +21,7 @@ import com.rtj.mctrackerrebuild.entities.Client;
 import com.rtj.mctrackerrebuild.entities.PayMethod;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ClientListActivity extends AppCompatActivity {
@@ -94,9 +95,9 @@ public class ClientListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.sample_code) {
             repository = new Repository(getApplication());
-            Client client = new Client(0, "John Smith", "es@email.com", "555-123-4567", PayMethod.CASH, PayMethod.CASH.getAmountDue(), PayMethod.CASH.getDisplayName());
+            Client client = new Client(0, "John Smith", "es@email.com", "555-123-4567", PayMethod.CASH, PayMethod.CASH.getAmountDue(), PayMethod.CASH.getDisplayName(),new Date());
             repository.insert(client);
-            client = new Client(99, "Jenny Jones", "jj@email.com", "255-867-5309", PayMethod.UnitedHealth, PayMethod.UnitedHealth.getAmountDue(), PayMethod.UnitedHealth.getDisplayName());
+            client = new Client(99, "Jenny Jones", "jj@email.com", "255-867-5309", PayMethod.UnitedHealth, PayMethod.UnitedHealth.getAmountDue(), PayMethod.UnitedHealth.getDisplayName(),new Date());
             repository.insert(client);
 
             Toast.makeText(ClientListActivity.this, "put in sample data", Toast.LENGTH_LONG).show();

@@ -3,6 +3,8 @@ package com.rtj.mctrackerrebuild.entities;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "table_client")
 public class Client {
     @PrimaryKey(autoGenerate = true)
@@ -13,15 +15,16 @@ public class Client {
     private PayMethod payMethod;
     private String amountDue;
     private String payType;
-    public Client(int clientid, String name, String email, String phoneNumber, PayMethod payMethod, String amountDue, String payType ) {
+    private Date timestamp;
+    public Client(int clientid, String name, String email, String phoneNumber, PayMethod payMethod, String amountDue, String payType ,Date timestamp) {
         this.clientid = clientid;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.payMethod = payMethod;
-
         this.payType = payType;
         this.amountDue = amountDue;
+        this.timestamp =timestamp;
     }
 
     public PayMethod getPayMethod() {
@@ -80,5 +83,11 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
 
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
 }
