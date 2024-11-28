@@ -20,6 +20,8 @@ import com.rtj.mctrackerrebuild.entities.User;
     @Query("SELECT * FROM user_table WHERE username = :username AND password = :password LIMIT 1")
     User getUser(String username, String password);
 
-    @Query("SELECT * FROM user_table LIMIT 1")
-    User getSingleUser();
-}
+    @Query("SELECT * FROM user_table WHERE username =:username LIMIT 1")
+    User getUserByName(String username);
+
+
+    }
