@@ -15,8 +15,8 @@ public class Client {
     private PayMethod payMethod;
     private String amountDue;
     private String payType;
-    private Date timestamp;
-    public Client(int clientid, String name, String email, String phoneNumber, PayMethod payMethod, String amountDue, String payType ,Date timestamp) {
+    private String timestamp;
+    public Client(int clientid, String name, String email, String phoneNumber, PayMethod payMethod, String amountDue, String payType ,String timestamp) {
         this.clientid = clientid;
         this.name = name;
         this.email = email;
@@ -83,11 +83,13 @@ public class Client {
         this.phoneNumber = phoneNumber;
     }
 
-    public Date getTimestamp() {
+    public String getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
-        this.timestamp = timestamp;
+    public String setTimestamp(String timestamp) {
+        Date date = new Date();
+        timestamp = date.toString();
+        return timestamp;
     }
 }

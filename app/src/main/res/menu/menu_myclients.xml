@@ -12,5 +12,8 @@
         app:showAsAction="ifRoom|collapseActionView"
         android:icon="@android:drawable/ic_menu_search"
         android:title="Search" />
+    <item
+        android:id="@+id/report"
+        android:title="Report"/>
 
 </menu>

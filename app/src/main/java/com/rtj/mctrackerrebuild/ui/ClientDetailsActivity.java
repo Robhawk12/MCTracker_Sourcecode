@@ -132,6 +132,9 @@ public class ClientDetailsActivity extends AppCompatActivity {
         }
         if(item.getItemId()==R.id.save){
             Client client;
+            Date date = new Date();
+            String timestamp = date.toString();
+
             int listSize = repository.getAllClients().size();
             if(clientID == -1){
                 if(listSize == 0) clientID = 0;
@@ -140,13 +143,13 @@ public class ClientDetailsActivity extends AppCompatActivity {
                             .get(repository.getAllClients().size() - 1).getClientid() + 1;
                 client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
                         editPhone.getText().toString(),payMethod,editPayment.getText().toString()
-                        ,editPayType.getText().toString(), new Date());
+                        ,editPayType.getText().toString(), timestamp);
                 repository.insert(client);
                 this.finish();
             }else {
                 client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
                         editPhone.getText().toString(),payMethod,editPayment.getText().toString()
-                        ,editPayType.getText().toString(),new Date());
+                        ,editPayType.getText().toString(),timestamp);
                 repository.update(client);
                 this.finish();
             }
