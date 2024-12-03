@@ -122,6 +122,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == R.id.delete) {
 
             for (Client c : repository.getAllClients()) {
@@ -130,6 +131,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
             }
         }
+
         if(item.getItemId()==R.id.save){
             Client client;
             Date date = new Date();
@@ -158,7 +160,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
     }
 
-    private void showDeleteDialog(){
+    public void showDeleteDialog(){
         LayoutInflater inflater = getLayoutInflater();
         View alertLayout = inflater.inflate(R.layout.dialog_delete_alert,null);
         TextView alertTitle = alertLayout.findViewById(R.id.alertTitle);

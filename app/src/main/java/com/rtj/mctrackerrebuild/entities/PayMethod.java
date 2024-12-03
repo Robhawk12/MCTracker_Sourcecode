@@ -3,8 +3,8 @@ package com.rtj.mctrackerrebuild.entities;
 public enum PayMethod {
     CASH(0,"Cash", "125"),
     UnitedHealth(1,"United Health Insurance", "30"),
-    FirstGroup(2,"First Group Health", "35");
-
+    FirstGroup(2,"First Group Health", "35"),
+    CreditCard(3,"Credit Card","130");
     private int id;
     private String displayName;
     private String amountDue;
