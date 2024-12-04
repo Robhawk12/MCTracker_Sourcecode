@@ -10,8 +10,8 @@ public class CashPayment extends Payment{
     public CashPayment(double amount){
         super(amount);
     }
-    @Override
- public void processPayment() {
+
+ public void processPayment(Context context) {
         System.out.println("Processing cash payment of "+ amount);
         Toast.makeText(context,"Processing cash payment of $"+amount,Toast.LENGTH_LONG).show();
          }

@@ -17,8 +17,8 @@ public class CreditCardPayment extends Payment{
         this.cardNumber = cardNumber;
     }
 
-    @Override
-    public void processPayment(){
+
+    public void processPayment(Context context){
         System.out.println("Processing credit card payment amount of $"+amount+" using card"+
                 cardNumber);
         Toast.makeText(context,"Processing credit card payment amount of $"+amount+" using card"+

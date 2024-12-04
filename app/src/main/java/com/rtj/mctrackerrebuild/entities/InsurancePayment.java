@@ -13,8 +13,8 @@ public class InsurancePayment extends Payment{
         this.insuranceProvider = insuranceProvider;
     }
 
-    @Override
-    public void processPayment(){
+
+    public void processPayment(Context context){
         System.out.println("Processing insurance payment of $"+ amount +" with provider"
         +insuranceProvider);
         Toast.makeText(context,"Processing insurance payment of $"+ amount +" with provider"

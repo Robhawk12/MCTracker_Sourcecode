@@ -19,8 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.rtj.mctrackerrebuild.R;
 import com.rtj.mctrackerrebuild.data.Repository;
+import com.rtj.mctrackerrebuild.entities.CashPayment;
 import com.rtj.mctrackerrebuild.entities.Client;
+import com.rtj.mctrackerrebuild.entities.CreditCardPayment;
+import com.rtj.mctrackerrebuild.entities.InsurancePayment;
 import com.rtj.mctrackerrebuild.entities.PayMethod;
+import com.rtj.mctrackerrebuild.entities.Payment;
 
 import java.util.Date;
 
@@ -38,8 +42,9 @@ public class ClientDetailsActivity extends AppCompatActivity {
     EditText editEmail;
     EditText editPhone;
     TextView editPayment;
-    Repository repository ;
+    Repository repository;
     int payMethodID;
+
 
 
     @Override
@@ -59,7 +64,7 @@ public class ClientDetailsActivity extends AppCompatActivity {
         email = getIntent().getStringExtra("email");
         phone = getIntent().getStringExtra("phone");
         payMethod = (PayMethod) intent.getSerializableExtra("paymethod");
-        if(payMethod != null){
+        if (payMethod != null) {
             payMethodID = payMethod.getId();
         }
         paymentAmount = getIntent().getStringExtra("amountdue");
@@ -69,7 +74,29 @@ public class ClientDetailsActivity extends AppCompatActivity {
         editPhone.setText(phone);
         editPayment.setText(paymentAmount);
         editPayType.setText(payType);
-
+        //Pay Button
+        Button paybutton = findViewById(R.id.payButton);
+        paybutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(payMethodID == 0){
+                    CashPayment cashPayment = new CashPayment(125);
+                    cashPayment.processPayment(ClientDetailsActivity.this);
+                }
+                if(payMethodID == 1){
+                    InsurancePayment insurancePayment = new InsurancePayment(30,"United Health");
+                    insurancePayment.processPayment(ClientDetailsActivity.this);
+                }
+                if(payMethodID == 2){
+                    InsurancePayment insurancePayment = new InsurancePayment(35,"First Group");
+                    insurancePayment.processPayment(ClientDetailsActivity.this);
+                }
+                if (payMethodID == 3){
+                    CreditCardPayment ccPayment = new CreditCardPayment(130,"Swipe Card");
+                    ccPayment.processPayment(ClientDetailsActivity.this);
+                }
+            }
+        });
         //Spinner
         Spinner paySpinner = findViewById(R.id.paySpinner);
         PayMethod[] payMethods = PayMethod.values();
@@ -77,43 +104,56 @@ public class ClientDetailsActivity extends AppCompatActivity {
                 this, android.R.layout.simple_spinner_item, payMethods);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         paySpinner.setAdapter(adapter);
-        if(payMethod != null) {
+        if (payMethod != null) {
             paySpinner.setSelection(payMethodID);
         }
         paySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 PayMethod selectedPayMethod = (PayMethod) adapterView.getItemAtPosition(position);
-                if(selectedPayMethod == PayMethod.CASH){
+                if (selectedPayMethod == PayMethod.CASH) {
                     payType = selectedPayMethod.getDisplayName();
                     paymentAmount = selectedPayMethod.getAmountDue();
                     editPayment.setText(paymentAmount);
                     editPayType.setText(payType);
                     payMethod = PayMethod.CASH;
+                    payMethodID = 0;
                 }
-                if(selectedPayMethod == PayMethod.FirstGroup){
+                if (selectedPayMethod == PayMethod.FirstGroup) {
                     payType = selectedPayMethod.getDisplayName();
                     paymentAmount = selectedPayMethod.getAmountDue();
                     editPayment.setText(paymentAmount);
                     editPayType.setText(payType);
                     payMethod = PayMethod.FirstGroup;
+                    payMethodID = 2;
                 }
-                if(selectedPayMethod == PayMethod.UnitedHealth){
+                if (selectedPayMethod == PayMethod.UnitedHealth) {
                     payType = selectedPayMethod.getDisplayName();
                     paymentAmount = selectedPayMethod.getAmountDue();
                     editPayment.setText(paymentAmount);
                     editPayType.setText(payType);
                     payMethod = PayMethod.UnitedHealth;
+                    payMethodID = 1;
+                }
+                if (selectedPayMethod == PayMethod.CreditCard){
+                    payType = selectedPayMethod.getDisplayName();
+                    paymentAmount = selectedPayMethod.getAmountDue();
+                    editPayment.setText(paymentAmount);
+                    editPayType.setText(payType);
+                    payMethod = PayMethod.CreditCard;
+                    payMethodID = 3;
+
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-           }
+            }
 
 
         });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,26 +172,26 @@ public class ClientDetailsActivity extends AppCompatActivity {
             }
         }
 
-        if(item.getItemId()==R.id.save){
+        if (item.getItemId() == R.id.save) {
             Client client;
             Date date = new Date();
             String timestamp = date.toString();
 
             int listSize = repository.getAllClients().size();
-            if(clientID == -1){
-                if(listSize == 0) clientID = 0;
+            if (clientID == -1) {
+                if (listSize == 0) clientID = 0;
                 else
                     clientID = repository.getAllClients()
                             .get(repository.getAllClients().size() - 1).getClientid() + 1;
-                client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
-                        editPhone.getText().toString(),payMethod,editPayment.getText().toString()
-                        ,editPayType.getText().toString(), timestamp);
+                client = new Client(clientID, editName.getText().toString(), editEmail.getText().toString(),
+                        editPhone.getText().toString(), payMethod, editPayment.getText().toString()
+                        , editPayType.getText().toString(), timestamp);
                 repository.insert(client);
                 this.finish();
-            }else {
-                client = new Client(clientID,editName.getText().toString(),editEmail.getText().toString(),
-                        editPhone.getText().toString(),payMethod,editPayment.getText().toString()
-                        ,editPayType.getText().toString(),timestamp);
+            } else {
+                client = new Client(clientID, editName.getText().toString(), editEmail.getText().toString(),
+                        editPhone.getText().toString(), payMethod, editPayment.getText().toString()
+                        , editPayType.getText().toString(), timestamp);
                 repository.update(client);
                 this.finish();
             }
@@ -160,9 +200,9 @@ public class ClientDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void showDeleteDialog(){
+    public void showDeleteDialog() {
         LayoutInflater inflater = getLayoutInflater();
-        View alertLayout = inflater.inflate(R.layout.dialog_delete_alert,null);
+        View alertLayout = inflater.inflate(R.layout.dialog_delete_alert, null);
         TextView alertTitle = alertLayout.findViewById(R.id.alertTitle);
         TextView alertMessage = alertLayout.findViewById(R.id.alertMessage);
         Button cancelButton = alertLayout.findViewById(R.id.cancelButton);
@@ -173,20 +213,20 @@ public class ClientDetailsActivity extends AppCompatActivity {
         alert.setCancelable(false);
         AlertDialog dialog = alert.create();
 
-        cancelButton.setOnClickListener(new View.OnClickListener(){
+        cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialog.dismiss();
             }
         });
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 repository.delete(currentClient);
-                Toast.makeText(ClientDetailsActivity.this,currentClient.getName()+" was deleted",
+                Toast.makeText(ClientDetailsActivity.this, currentClient.getName() + " was deleted",
                         Toast.LENGTH_LONG).show();
                 dialog.dismiss();
-              finish();
+                finish();
             }
         });
         dialog.show();

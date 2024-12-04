@@ -172,6 +172,18 @@
                 android:padding="10dp"
                 android:spinnerMode="dropdown" />
 
+            <Button
+                android:id="@+id/payButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorPrimary"
+                android:gravity="bottom|center"
+
+                android:padding="16dp"
+                android:text="Process Payment"
+                android:textColor="@color/colorAccent" />
+
+
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
