@@ -9,14 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.rtj.mctrackerrebuild.R;
 import com.rtj.mctrackerrebuild.data.Repository;
-import com.rtj.mctrackerrebuild.entities.User;
 
 public class NewUserActivity extends AppCompatActivity {
     Repository repository;
     EditText editUserName;
     EditText editPassword;
     Button buttonSave;
-    User user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

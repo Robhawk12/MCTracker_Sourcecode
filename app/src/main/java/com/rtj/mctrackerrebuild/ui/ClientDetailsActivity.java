@@ -176,7 +176,20 @@ public class ClientDetailsActivity extends AppCompatActivity {
             Client client;
             Date date = new Date();
             String timestamp = date.toString();
-
+            String e = editEmail.getText().toString();
+            String p = editPhone.getText().toString();
+            if(!isValidEmail(e)) {
+                editEmail.setError("Invalid email format");
+                return true;
+            }else {
+                editEmail.setError(null);
+            }
+            if(!isValidPhone(p)){
+                editPhone.setError("Invalid phone format");
+                return true;
+            }else {
+                editPhone.setError(null);
+            }
             int listSize = repository.getAllClients().size();
             if (clientID == -1) {
                 if (listSize == 0) clientID = 0;
@@ -231,5 +244,12 @@ public class ClientDetailsActivity extends AppCompatActivity {
         });
         dialog.show();
     }
-
+    public boolean isValidEmail(String email){
+        String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+        return email != null && email.matches(emailPattern);
+    }
+    public boolean isValidPhone(String phone){
+        String phonePattern = "\\d{3}-?\\d{3}-?\\d{4}";
+        return phone != null && phone.matches(phonePattern);
+    }
 }

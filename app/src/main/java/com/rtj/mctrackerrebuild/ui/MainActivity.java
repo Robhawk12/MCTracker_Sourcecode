@@ -10,10 +10,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rtj.mctrackerrebuild.R;
-import com.rtj.mctrackerrebuild.data.Repository;
-import com.rtj.mctrackerrebuild.data.UserRepository;
-import com.rtj.mctrackerrebuild.entities.User;
-import com.rtj.mctrackerrebuild.viewModel.UserViewModel;
 
 public class MainActivity extends AppCompatActivity {
         EditText editUsername;

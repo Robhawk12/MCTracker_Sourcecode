@@ -1,6 +1,5 @@
 package com.rtj.mctrackerrebuild.entities;
-/*Illustrative of Inheritance*
-* For future payment pocessing*/
+
 public abstract class Payment {
     public double amount;
 
