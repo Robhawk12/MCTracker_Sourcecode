@@ -1,4 +1,4 @@
-# MCTracker
+# MCTracker v1.0
 A client tracker for massage therapists for Android 8
 
 ## Installation instructions for MCTracker.apk
