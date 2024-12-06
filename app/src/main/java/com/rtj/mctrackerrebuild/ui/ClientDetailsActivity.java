@@ -45,8 +45,6 @@ public class ClientDetailsActivity extends AppCompatActivity {
     Repository repository;
     int payMethodID;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,11 +147,8 @@ public class ClientDetailsActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
-
-
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
