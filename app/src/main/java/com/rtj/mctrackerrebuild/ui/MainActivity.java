@@ -17,9 +17,6 @@ import com.rtj.mctrackerrebuild.R;
 public class MainActivity extends AppCompatActivity {
         private EditText editUsername;
         private EditText editPassword;
-
-        //String n = "Admin";
-        //String p = "Password";
         private SharedPreferences sharedPreferences;
 
 
@@ -37,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
                 .putString("password",password)
                 .apply();
 
-        //UserRepository repository = new UserRepository(getApplication());
-        //User user = new User();
         editUsername = findViewById(R.id.editTextUsername);
         editPassword = findViewById(R.id.editTextPassword);
 
@@ -48,15 +43,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 handleLogin();
-
-               //user = repository.getUserByUserame(name);
-               /*if(name.equals("Admin") && password.equals("Password")) {
-                   startActivity(intent);
-                   Toast.makeText(MainActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-               }else {
-                   Toast.makeText(MainActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
-               }*/
-           }
+            }
         });
     }
 

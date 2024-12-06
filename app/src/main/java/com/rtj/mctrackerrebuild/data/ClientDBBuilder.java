@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.rtj.mctrackerrebuild.dao.ClientDao;
 import com.rtj.mctrackerrebuild.entities.Client;
 
-@Database(entities = {Client.class}, version = 32, exportSchema = false)
+@Database(entities = {Client.class}, version = 33, exportSchema = false)
 public abstract class ClientDBBuilder extends RoomDatabase {
 
     public abstract ClientDao clientDao();
